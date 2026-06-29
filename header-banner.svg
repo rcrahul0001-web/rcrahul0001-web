@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 240" width="100%" height="100%">
+  <!-- styling -->
+  <style>
+    .title {
+      font-family: 'Segoe UI', Inter, Roboto, sans-serif;
+      font-weight: 800;
+      font-size: 38px;
+      fill: #ffffff;
+      letter-spacing: 2px;
+    }
+    .subtitle {
+      font-family: 'Segoe UI', Inter, Roboto, sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      fill: #a0aec0;
+      letter-spacing: 4px;
+    }
+    .tag {
+      font-family: 'Segoe UI', Inter, Roboto, sans-serif;
+      font-weight: 600;
+      font-size: 11px;
+      fill: #60a5fa;
+      letter-spacing: 1.5px;
+    }
+    .grid-line {
+      stroke: #1e293b;
+      stroke-width: 1px;
+      stroke-opacity: 0.5;
+    }
+    .chart-line {
+      stroke: url(#chart-gradient);
+      stroke-width: 3.5px;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0px 0px 8px rgba(96, 165, 250, 0.6));
+    }
+    .chart-area {
+      fill: url(#area-gradient);
+      opacity: 0.08;
+    }
+    .glow-dot {
+      fill: #60a5fa;
+      filter: drop-shadow(0px 0px 6px #60a5fa);
+    }
+  </style>
+
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+    <linearGradient id="chart-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="50%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#ec4899" />
+    </linearGradient>
+    <linearGradient id="area-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="1" />
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0" />
+    </linearGradient>
+    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#1e293b" />
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bg-gradient)" rx="12" />
+  
+  <!-- Dot Grid Pattern overlay -->
+  <rect width="100%" height="100%" fill="url(#dot-grid)" rx="12" />
+
+  <!-- Abstract Data Graphics (Right side) -->
+  <g transform="translate(480, 20)">
+    <!-- Grid behind chart -->
+    <line x1="0" y1="40" x2="280" y2="40" class="grid-line" />
+    <line x1="0" y1="90" x2="280" y2="90" class="grid-line" />
+    <line x1="0" y1="140" x2="280" y2="140" class="grid-line" />
+    <line x1="0" y1="190" x2="280" y2="190" class="grid-line" />
+    
+    <!-- Vertical grid lines -->
+    <line x1="0" y1="40" x2="0" y2="190" class="grid-line" />
+    <line x1="70" y1="40" x2="70" y2="190" class="grid-line" />
+    <line x1="140" y1="40" x2="140" y2="190" class="grid-line" />
+    <line x1="210" y1="40" x2="210" y2="190" class="grid-line" />
+    <line x1="280" y1="40" x2="280" y2="190" class="grid-line" />
+
+    <!-- Chart area under the curve -->
+    <path d="M 0 170 Q 35 120 70 140 T 140 80 T 210 110 T 280 50 L 280 190 L 0 190 Z" class="chart-area" />
+
+    <!-- Chart line -->
+    <path d="M 0 170 Q 35 120 70 140 T 140 80 T 210 110 T 280 50" class="chart-line" />
+
+    <!-- Chart Data Points -->
+    <circle cx="70" cy="140" r="4" class="glow-dot" />
+    <circle cx="140" cy="80" r="4" class="glow-dot" fill="#8b5cf6" />
+    <circle cx="210" cy="110" r="4" class="glow-dot" fill="#d946ef" />
+    <circle cx="280" cy="50" r="4.5" class="glow-dot" fill="#ec4899" />
+
+    <!-- Glowing accent lines -->
+    <path d="M-10, 0 L300, 0" stroke="#1e293b" stroke-width="1" />
+  </g>
+
+  <!-- Left Side Text Content -->
+  <g transform="translate(45, 75)">
+    <!-- Tech Tag -->
+    <text x="0" y="0" class="tag">DATA ANALYTICS &amp; BUSINESS INTELLIGENCE</text>
+    
+    <!-- Title -->
+    <text x="0" y="42" class="title">RAHUL CHAUHAN</text>
+    
+    <!-- Subtitle -->
+    <text x="0" y="76" class="subtitle">PYTHON | SQL | POWER BI | EXCEL</text>
+    
+    <!-- Minimal Dashboard Widgets under subtitle -->
+    <g transform="translate(0, 105)">
+      <!-- Python Badge -->
+      <rect x="0" y="0" width="70" height="22" rx="4" fill="#1e293b" stroke="#3b82f6" stroke-width="0.8" opacity="0.8" />
+      <text x="35" y="14" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#3b82f6" text-anchor="middle">PYTHON</text>
+
+      <!-- SQL Badge -->
+      <rect x="80" y="0" width="55" height="22" rx="4" fill="#1e293b" stroke="#10b981" stroke-width="0.8" opacity="0.8" />
+      <text x="107.5" y="14" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#10b981" text-anchor="middle">SQL</text>
+
+      <!-- Power BI Badge -->
+      <rect x="145" y="0" width="85" height="22" rx="4" fill="#1e293b" stroke="#f59e0b" stroke-width="0.8" opacity="0.8" />
+      <text x="187.5" y="14" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#f59e0b" text-anchor="middle">POWER BI</text>
+
+      <!-- Excel Badge -->
+      <rect x="240" y="0" width="65" height="22" rx="4" fill="#1e293b" stroke="#10b981" stroke-width="0.8" opacity="0.8" />
+      <text x="272.5" y="14" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#10b981" text-anchor="middle">EXCEL</text>
+    </g>
+  </g>
+
+  <!-- Accent bar at the top -->
+  <rect x="0" y="0" width="100%" height="4" fill="url(#chart-gradient)" />
+</svg>
