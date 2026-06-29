@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 240" width="100%" height="100%">
-  <!-- styling -->
+  <!-- styling with embedded CSS animations -->
   <style>
+    /* Base text styles */
     .title {
       font-family: 'Segoe UI', Inter, Roboto, sans-serif;
       font-weight: 800;
@@ -25,8 +26,56 @@
     .grid-line {
       stroke: #1e293b;
       stroke-width: 1px;
-      stroke-opacity: 0.5;
+      stroke-opacity: 0.4;
     }
+
+    /* Keyframes for animations */
+    @keyframes draw-line {
+      0% {
+        stroke-dashoffset: 700;
+      }
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes fade-in-up {
+      0% {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% {
+        opacity: 0.5;
+        filter: drop-shadow(0px 0px 4px #60a5fa);
+      }
+      50% {
+        opacity: 1;
+        filter: drop-shadow(0px 0px 10px #60a5fa);
+      }
+    }
+
+    @keyframes float-badge {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-3px);
+      }
+    }
+
+    @keyframes grid-glow {
+      0%, 100% { stroke-opacity: 0.3; }
+      50% { stroke-opacity: 0.6; }
+    }
+
+    /* Applying animations to classes */
     .chart-line {
       stroke: url(#chart-gradient);
       stroke-width: 3.5px;
@@ -34,23 +83,65 @@
       stroke-linecap: round;
       stroke-linejoin: round;
       filter: drop-shadow(0px 0px 8px rgba(96, 165, 250, 0.6));
+      stroke-dasharray: 700;
+      stroke-dashoffset: 700;
+      animation: draw-line 3.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
     }
+
     .chart-area {
       fill: url(#area-gradient);
-      opacity: 0.08;
+      opacity: 0;
+      animation: fade-in-up 2s ease-out 1.5s forwards;
     }
+
     .glow-dot {
       fill: #60a5fa;
-      filter: drop-shadow(0px 0px 6px #60a5fa);
+      animation: pulse-glow 2s infinite ease-in-out;
     }
+    .dot-delay-1 { animation-delay: 0.3s; }
+    .dot-delay-2 { animation-delay: 0.6s; }
+    .dot-delay-3 { animation-delay: 0.9s; }
+    .dot-delay-4 { animation-delay: 1.2s; }
+
+    /* Animated Grid Lines */
+    .animated-grid {
+      animation: grid-glow 4s infinite ease-in-out alternate;
+    }
+
+    /* Left Side Text Entry animations */
+    .anim-tag {
+      opacity: 0;
+      animation: fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+    }
+    .anim-title {
+      opacity: 0;
+      animation: fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+    }
+    .anim-subtitle {
+      opacity: 0;
+      animation: fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+    }
+    .anim-badges {
+      opacity: 0;
+      animation: fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) 1.1s forwards;
+    }
+
+    /* Hover float animations for tech badges */
+    .tech-badge {
+      animation: float-badge 4s infinite ease-in-out;
+    }
+    .badge-p { animation-delay: 0s; }
+    .badge-s { animation-delay: 0.5s; }
+    .badge-pb { animation-delay: 1s; }
+    .badge-e { animation-delay: 1.5s; }
   </style>
 
   <!-- Gradients -->
   <defs>
     <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="0%" stop-color="#070a13" />
       <stop offset="50%" stop-color="#0f172a" />
-      <stop offset="100%" stop-color="#020617" />
+      <stop offset="100%" stop-color="#02040a" />
     </linearGradient>
     <linearGradient id="chart-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#3b82f6" />
@@ -58,7 +149,7 @@
       <stop offset="100%" stop-color="#ec4899" />
     </linearGradient>
     <linearGradient id="area-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#3b82f6" stop-opacity="1" />
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.25" />
       <stop offset="100%" stop-color="#3b82f6" stop-opacity="0" />
     </linearGradient>
     <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -73,7 +164,7 @@
   <rect width="100%" height="100%" fill="url(#dot-grid)" rx="12" />
 
   <!-- Abstract Data Graphics (Right side) -->
-  <g transform="translate(480, 20)">
+  <g class="animated-grid" transform="translate(480, 20)">
     <!-- Grid behind chart -->
     <line x1="0" y1="40" x2="280" y2="40" class="grid-line" />
     <line x1="0" y1="90" x2="280" y2="90" class="grid-line" />
@@ -90,50 +181,64 @@
     <!-- Chart area under the curve -->
     <path d="M 0 170 Q 35 120 70 140 T 140 80 T 210 110 T 280 50 L 280 190 L 0 190 Z" class="chart-area" />
 
-    <!-- Chart line -->
+    <!-- Chart line (Self-drawing) -->
     <path d="M 0 170 Q 35 120 70 140 T 140 80 T 210 110 T 280 50" class="chart-line" />
 
-    <!-- Chart Data Points -->
-    <circle cx="70" cy="140" r="4" class="glow-dot" />
-    <circle cx="140" cy="80" r="4" class="glow-dot" fill="#8b5cf6" />
-    <circle cx="210" cy="110" r="4" class="glow-dot" fill="#d946ef" />
-    <circle cx="280" cy="50" r="4.5" class="glow-dot" fill="#ec4899" />
+    <!-- Chart Data Points (Glowing + Pulsing) -->
+    <circle cx="70" cy="140" r="4.5" class="glow-dot dot-delay-1" />
+    <circle cx="140" cy="80" r="4.5" class="glow-dot dot-delay-2" fill="#8b5cf6" />
+    <circle cx="210" cy="110" r="4.5" class="glow-dot dot-delay-3" fill="#d946ef" />
+    <circle cx="280" cy="50" r="5" class="glow-dot dot-delay-4" fill="#ec4899" />
 
     <!-- Glowing accent lines -->
     <path d="M-10, 0 L300, 0" stroke="#1e293b" stroke-width="1" />
   </g>
 
-  <!-- Left Side Text Content -->
+  <!-- Left Side Text Content (Slide in + Fade in) -->
   <g transform="translate(45, 75)">
     <!-- Tech Tag -->
-    <text x="0" y="0" class="tag">DATA ANALYTICS &amp; BUSINESS INTELLIGENCE</text>
+    <g class="anim-tag">
+      <text x="0" y="0" class="tag">DATA ANALYTICS &amp; BUSINESS INTELLIGENCE</text>
+    </g>
     
     <!-- Title -->
-    <text x="0" y="42" class="title">RAHUL CHAUHAN</text>
+    <g class="anim-title">
+      <text x="0" y="42" class="title">RAHUL CHAUHAN</text>
+    </g>
     
     <!-- Subtitle -->
-    <text x="0" y="76" class="subtitle">PYTHON | SQL | POWER BI | EXCEL</text>
+    <g class="anim-subtitle">
+      <text x="0" y="76" class="subtitle">PYTHON | SQL | POWER BI | EXCEL</text>
+    </g>
     
-    <!-- Minimal Dashboard Widgets under subtitle -->
-    <g transform="translate(0, 105)">
+    <!-- Tech Badges with individual floating delay animations -->
+    <g class="anim-badges" transform="translate(0, 105)">
       <!-- Python Badge -->
-      <rect x="0" y="0" width="70" height="22" rx="4" fill="#1e293b" stroke="#3b82f6" stroke-width="0.8" opacity="0.8" />
-      <text x="35" y="14" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#3b82f6" text-anchor="middle">PYTHON</text>
+      <g class="tech-badge badge-p">
+        <rect x="0" y="0" width="70" height="22" rx="4" fill="#1e293b" stroke="#3b82f6" stroke-width="0.8" opacity="0.8" />
+        <text x="35" y="14" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#3b82f6" text-anchor="middle">PYTHON</text>
+      </g>
 
       <!-- SQL Badge -->
-      <rect x="80" y="0" width="55" height="22" rx="4" fill="#1e293b" stroke="#10b981" stroke-width="0.8" opacity="0.8" />
-      <text x="107.5" y="14" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#10b981" text-anchor="middle">SQL</text>
+      <g class="tech-badge badge-s" transform="translate(80, 0)">
+        <rect x="0" y="0" width="55" height="22" rx="4" fill="#1e293b" stroke="#10b981" stroke-width="0.8" opacity="0.8" />
+        <text x="27.5" y="14" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#10b981" text-anchor="middle">SQL</text>
+      </g>
 
       <!-- Power BI Badge -->
-      <rect x="145" y="0" width="85" height="22" rx="4" fill="#1e293b" stroke="#f59e0b" stroke-width="0.8" opacity="0.8" />
-      <text x="187.5" y="14" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#f59e0b" text-anchor="middle">POWER BI</text>
+      <g class="tech-badge badge-pb" transform="translate(145, 0)">
+        <rect x="0" y="0" width="85" height="22" rx="4" fill="#1e293b" stroke="#f59e0b" stroke-width="0.8" opacity="0.8" />
+        <text x="42.5" y="14" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#f59e0b" text-anchor="middle">POWER BI</text>
+      </g>
 
       <!-- Excel Badge -->
-      <rect x="240" y="0" width="65" height="22" rx="4" fill="#1e293b" stroke="#10b981" stroke-width="0.8" opacity="0.8" />
-      <text x="272.5" y="14" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#10b981" text-anchor="middle">EXCEL</text>
+      <g class="tech-badge badge-e" transform="translate(240, 0)">
+        <rect x="0" y="0" width="65" height="22" rx="4" fill="#1e293b" stroke="#10b981" stroke-width="0.8" opacity="0.8" />
+        <text x="32.5" y="14" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#10b981" text-anchor="middle">EXCEL</text>
+      </g>
     </g>
   </g>
 
-  <!-- Accent bar at the top -->
+  <!-- Animated accent bar at the top -->
   <rect x="0" y="0" width="100%" height="4" fill="url(#chart-gradient)" />
 </svg>
